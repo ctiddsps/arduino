@@ -41,18 +41,24 @@ void setup() {
 
 void loop() {
 
-  
-int motorset = 90;
+  // how fast the robot moves
+int motorset = 90;    
+//set right to full speed
   int right = 90-motorset;
+  //set left to full speed
   int left = 90+motorset;
+  // light = read light sensor
   int light = analogRead(A3);
-  int turntime = 200
-  int drvtime = 500
-  int lightborder = 300
+  // how long it takes the robot to turn
+  int turntime = 200;
+  // how long the robot drives for
+  int drvtime = 500;
+  // the line between black and white
+  int lightborder = 300;
   
   
   
-  while(light>300) {// &&gyrotest()!=1){       //while the distance sensor doesn't see anything  
+  while(light>300) { 
     motorR.write(right);        //make both motors go forwards at the same speed
     motorL.write(left);
     if (light<300){
@@ -62,7 +68,7 @@ int motorset = 90;
       delay(turntime);
       motorR.write(right-motorset);
       motorL.write(left -motorset);
-      delay(turntime)
+      delay(turntime);
     }
   }
                                   /// when something is in front of the distance sensor
