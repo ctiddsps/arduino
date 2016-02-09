@@ -42,11 +42,11 @@ void setup() {
 void loop() {
 
   
-  int motorset = 90;
+int motorset = 90;
   int right = 90-motorset;
   int left = 90+motorset;
   
-  while(distance()!=1 &&gyrotest()!=1){       //while the distance sensor doesn't see anything  
+  while(distance()!=1) {// &&gyrotest()!=1){       //while the distance sensor doesn't see anything  
     motorR.write(right);        //make both motors go forwards at the same speed
     motorL.write(left);
   }
@@ -54,9 +54,9 @@ void loop() {
   stopmotors();                 //stop going forward
   delay(500);
   
-  motorR.write(left);           //go backwards 
+  motorR.write(right);           //go backwards 
   motorL.write(right);
-  delay(random(500,1500));
+  delay(500);
   stopmotors();                         ////stop going backwards
   
   turn();                                    ////turn than stop
