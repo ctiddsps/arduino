@@ -41,26 +41,47 @@ void setup() {
 
 void loop() {
 
-  
-  int motorset = 90;
+  // how fast the robot moves
+int motorset = 90;    
+//set right to full speed
   int right = 90-motorset;
+  //set left to full speed
   int left = 90+motorset;
+  // light = read light sensor
+  int light = analogRead(A3);
+  // how long it takes the robot to turn
+  int turntime = 200;
+  // how long the robot drives for
+  int drvtime = 500;
+  // the line between black and white
+  int lightborder = 300;
   
-  while(distance()!=1 &&gyrotest()!=1){       //while the distance sensor doesn't see anything  
+  
+  
+  while(light>300) { 
     motorR.write(right);        //make both motors go forwards at the same speed
     motorL.write(left);
+    if (light<300){
+      delay(drvtime);
+      motorR.write(right+motorset);
+      motorL.write(left -motorset);
+      delay(turntime);
+      motorR.write(right-motorset);
+      motorL.write(left -motorset);
+      delay(turntime);
+    }
   }
                                   /// when something is in front of the distance sensor
-  stopmotors();                 //stop going forward
-  delay(500);
+  //stopmotors();                 //stop going forward
+ // delay(500);
   
-  motorR.write(left);           //go backwards 
-  motorL.write(right);
-  delay(random(500,1500));
-  stopmotors();                         ////stop going backwards
+//  motorR.write(right);           //go backwards 
+//  motorL.write(right);
+//  delay(500);
+//  stopmotors();                         ////stop going backwards
   
-  turn();                                    ////turn than stop
-}                                       ///repeat loop
+//  turn();                                    ////turn than stop
+//}                                       ///repeat loop
 
 
 
@@ -68,57 +89,57 @@ void loop() {
 
 
 
-int gyrotest(){
-  int i;
-  int lastacceleration= dof.calcAccel(dof.az);
+//int gyrotest(){
+//  int i;
+ // int lastacceleration= dof.calcAccel(dof.az);
   
-  for (i = 0; i < 500; i = i + 1) {
-          if (dof.calcAccel(dof.az)<10+lastacceleration&&dof.calcAccel(dof.az)>lastacceleration-10){
-            i = i+2;
-            return 1;
-          }
-          else{
-            return 0;
-          }
-      }
-}
+ // for (i = 0; i < 500; i = i + 1) {
+        //  if (dof.calcAccel(dof.az)<10+lastacceleration&&dof.calcAccel(dof.az)>lastacceleration-10){
+        //    i = i+2;
+        //    return 1;
+       //   }
+       //   else{
+      //      return 0;
+    //      }
+  //    }
+//}
 
 
 
 
 
-void turn(){
-  motorR.write(random(0,180));      /////robot turns random direction for less than stops moving
-  motorL.write(random(0,180));
-  delay(random(500,2000));
-  stopmotors();
-}
+//void turn(){
+//  motorR.write(random(0,180));      /////robot turns random direction for less than stops moving
+//  motorL.write(random(0,180));
+ // delay(random(500,2000));
+ // stopmotors();
+//}
 
 
 
 
-int distance(){            //////checks the distance sensors, returns 0 if there is nothing close to either sensor
-      int back=0;          ////// and returns 1 if there is something close to either sensor
-      int i;
-      int distance1 = analogRead(A2);
-      int distance2 = analogRead(A7);
-      int distancesensors[3]={distance1,distance2};
-      for (i = 0; i < 2; i = i + 1) {
-          if (distancesensors[i]>450){
-            i = i+2;
-            return 1;
-          }
-          else{
-            return 0;
-          }
-      }
-  }
+//int distance(){            //////checks the distance sensors, returns 0 if there is nothing close to either sensor
+   //   int back=0;          ////// and returns 1 if there is something close to either sensor
+   ///   int i;
+   ///   int distance1 = analogRead(A2);
+   //   int distance2 = analogRead(A7);
+    //  int distancesensors[3]={distance1,distance2};
+    //  for (i = 0; i < 2; i = i + 1) {
+     //     if (distancesensors[i]>450){
+     //       i = i+2;
+      //      return 1;
+      //    }
+      //    else{
+      //      return 0;
+      //    }
+    //  }
+ // }
 
 
 
 
-void stopmotors(){      ////returns both motors to neutral 
-  motorR.write(90);
-  motorL.write(90);
-}
+//void stopmotors(){      ////returns both motors to neutral 
+//  motorR.write(90);
+//  motorL.write(90);
+//}
 
